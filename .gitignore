@@ -1,0 +1,30 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+prep/all_frames_processed_GS012237_1719791982345517
+prep/defects_coco_GS012237_1719791982345517.json
+
+src/assets/GS012237-stitched.mp4
+src/assets/markerThumbnails/*
