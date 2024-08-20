@@ -3,18 +3,21 @@ import {VideoControls} from "./components/VideoControls/VideoControls.tsx";
 
 import {useVideoControls} from "./hooks/useVideoControls.ts";
 
-import {formatTime} from "./utils/formatTime.ts";
 
 import stitched from "./assets/GS012237-stitched.mp4";
+import image from "./assets/thumb_21_R_1592_5.27_.png";
 
 import './App.css'
+
+export interface ImageProps {
+    imageSrc: string;
+    positionInSeconds: number;
+}
 
 function App() {
     const {
         videoRef,
         videoDuration,
-        currentTimeInVideo,
-        onVideoTimeUpdate,
         seekVideoTo,
         onLoadedMetadata,
         playPauseClicked
@@ -26,25 +29,18 @@ function App() {
                 src={stitched}
                 ref={videoRef}
                 onLoadedMetadata={onLoadedMetadata}
-                onTimeUpdate={onVideoTimeUpdate}
             />
-
-            <div className="flex-row align-center">
-                <span className="monospaced">
-                    {formatTime(videoDuration)} | {formatTime(currentTimeInVideo)}
-                </span>
-                <button onClick={playPauseClicked}>
-                    Play/Pause
-                </button>
-                <button onClick={() => seekVideoTo(0)}>
-                    To Video Start
-                </button>
-            </div>
 
             <VideoControls
                 seekVideoTo={seekVideoTo}
-                playPause={playPauseClicked}
                 videoDuration={videoDuration}
+                playPauseClicked={playPauseClicked}
+                images={[
+                    {
+                        positionInSeconds: 7,
+                        imageSrc: image
+                    }
+                ]}
             />
         </div>
     );

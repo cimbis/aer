@@ -5,9 +5,9 @@ import {
     useRef
 } from "react";
 
-import {formatTime} from "../utils/formatTime.ts";
+import {ImageProps} from "../App.tsx";
 
-import {ImageProps} from "../components/VideoControls/Ruler/Ruler.tsx";
+import {formatTime} from "../utils/formatTime.ts";
 
 interface CanvasProps {
     prefersDark: boolean;
@@ -79,7 +79,7 @@ export const useCanvas = ({
         })
     }, [images, pixelsPerSecond])
 
-    const handleCanvasClick = (event: MouseEvent) => {
+    const handleCanvasClick = (event: { clientX: number; clientY: number; }) => {
         if (!canvasRef.current) return;
 
         const canvasRect = canvasRef.current.getBoundingClientRect();
@@ -92,7 +92,7 @@ export const useCanvas = ({
 
             // assuming images are 25x25
             if (
-                clickPositionX >= imagePositionX && clickPositionX <= imagePositionX + 25
+                clickPositionX >= imagePositionX - 12.5 && clickPositionX <= imagePositionX + 12.5
                 && clickPositionY >= imagePositionY && clickPositionY <= imagePositionY + 25
             ) {
                 return image;

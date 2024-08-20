@@ -1,17 +1,10 @@
-import {
-    ForwardedRef,
-    forwardRef,
-} from "react";
+import {ImageProps} from "../../../App.tsx";
 
-import "./Ruler.css"
 import {useCanvas} from "../../../hooks/useCanvas.ts";
 import useMediaQuery from "../../../hooks/useMediaQuery.ts";
 
-
-export interface ImageProps {
-    imageSrc: string;
-    positionInSeconds: number;
-}
+import "./Ruler.css"
+import {memo} from "react";
 
 interface RulerProps {
     videoDuration: number;
@@ -20,12 +13,14 @@ interface RulerProps {
     onImageClick: (number: number) => void;
 }
 
-export const Ruler = ({
-                          videoDuration,
-                          pixelsPerSecond,
-                          images,
-                          onImageClick
-                      }: RulerProps) => {
+export const Ruler = memo(function RulerComponent({
+                                                      videoDuration,
+                                                      pixelsPerSecond,
+                                                      images,
+                                                      onImageClick
+                                                  }: RulerProps) {
+
+    console.log('rerendered')
     const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
 
     const {
@@ -42,14 +37,16 @@ export const Ruler = ({
     });
 
     return (
-        <div className="ruler position-absolute w-100 overflow-x-scroll">
-            <canvas
-                ref={canvasRef}
-                id="ruler-canvas"
-                width={canvasWidth}
-                height={canvasHeight}
-                onClick={handleCanvasClick}
-            />
+        <div className="position-relative">
+            <div className="ruler position-absolute w-100 overflow-x-scroll">
+                <canvas
+                    ref={canvasRef}
+                    id="ruler-canvas"
+                    width={canvasWidth}
+                    height={canvasHeight}
+                    onClick={handleCanvasClick}
+                />
+            </div>
         </div>
     );
-}
+})

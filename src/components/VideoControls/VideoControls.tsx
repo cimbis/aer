@@ -1,27 +1,32 @@
 import "./VideoControls.css"
+import {ImageProps} from "../../App.tsx";
 import {Ruler} from "./Ruler/Ruler.tsx";
-
-import image from "../../assets/thumb_21_R_1592_5.27_.png"
+import {Meta} from "./Meta.tsx";
 
 interface VideoControlsProps {
     seekVideoTo: (toSeconds: number) => void,
-    playPause: () => Promise<void>
+    playPauseClicked: () => void;
     videoDuration: number;
+    images: ImageProps[];
 }
 
-export const VideoControls = (props: VideoControlsProps) => {
+export const VideoControls = ({
+                                  seekVideoTo,
+                                  playPauseClicked,
+                                  videoDuration,
+                                  images
+                              }: VideoControlsProps) => {
     return (
-        <div className="flex-column position-relative">
+        <div className="flex-column">
+            <Meta videoDuration={videoDuration}
+                  playPauseClicked={playPauseClicked}
+                  seekVideoTo={seekVideoTo}
+            />
             <Ruler
-                videoDuration={props.videoDuration}
+                videoDuration={videoDuration}
                 pixelsPerSecond={50}
-                images={[
-                    {
-                        positionInSeconds: 7,
-                        imageSrc: image
-                    }
-                ]}
-                onImageClick={props.seekVideoTo}
+                images={images}
+                onImageClick={seekVideoTo}
             />
         </div>
     );

@@ -1,29 +1,24 @@
-import {useRef, useState} from "react";
+import {useCallback, useRef, useState} from "react";
 
 export const useVideoControls = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
 
     const [videoDuration, setVideoDuration] = useState(0);
-    const [currentTimeInVideo, setCurrentTimeInVideo] = useState(0);
 
-    const onLoadedMetadata = () => {
+    const onLoadedMetadata = useCallback(() => {
         if (videoRef.current) {
             setVideoDuration(videoRef.current.duration);
         }
-    }
+    }, [videoRef]);
 
-    const onVideoTimeUpdate = () => {
-        if (videoRef.current) {
-            setCurrentTimeInVideo(videoRef.current.currentTime);
-        }
-    }
-    const seekVideoTo = (timeTo: number) => {
+
+    const seekVideoTo = useCallback((timeTo: number) => {
         if (videoRef.current) {
             videoRef.current.currentTime = timeTo;
         }
-    }
+    }, [videoRef])
 
-    const playPauseClicked = async () => {
+    const playPauseClicked = useCallback(async () => {
         if (videoRef.current) {
             if (videoRef.current.paused) {
                 await videoRef.current.play();
@@ -31,14 +26,12 @@ export const useVideoControls = () => {
                 videoRef.current.pause();
             }
         }
-    }
+    }, [videoRef])
 
     return {
         videoRef,
         videoDuration,
-        currentTimeInVideo,
         onLoadedMetadata,
-        onVideoTimeUpdate,
         seekVideoTo,
         playPauseClicked
     };
