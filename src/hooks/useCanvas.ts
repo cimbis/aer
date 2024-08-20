@@ -17,13 +17,15 @@ interface CanvasProps {
     onImageClick: (number: number) => void;
 }
 
-export const useCanvas = ({
-                              prefersDark,
-                              videoDuration,
-                              pixelsPerSecond,
-                              images,
-                              onImageClick
-                          }: CanvasProps) => {
+export const useCanvas = (
+    {
+        prefersDark,
+        videoDuration,
+        pixelsPerSecond,
+        images,
+        onImageClick
+    }: CanvasProps
+) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     const canvasHeight = 200; // px

@@ -13,14 +13,15 @@ interface RulerProps {
     onImageClick: (number: number) => void;
 }
 
-export const Ruler = memo(function RulerComponent({
-                                                      videoDuration,
-                                                      pixelsPerSecond,
-                                                      images,
-                                                      onImageClick
-                                                  }: RulerProps) {
+export const Ruler = memo(function RulerComponent(
+    {
+        videoDuration,
+        pixelsPerSecond,
+        images,
+        onImageClick
+    }: RulerProps
+) {
 
-    console.log('rerendered')
     const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
 
     const {

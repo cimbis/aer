@@ -8,18 +8,17 @@ interface SimpleVideoProps {
 }
 
 export const SimpleVideo = forwardRef(
-    (
-        props: SimpleVideoProps,
-        ref: ForwardedRef<HTMLVideoElement>
+    ({
+         src,
+         onLoadedMetadata
+     }: SimpleVideoProps,
+     ref: ForwardedRef<HTMLVideoElement>
     ) => {
-
-        console.log("video");
-
         return (
             <video
                 ref={ref}
-                src={props.src}
-                onLoadedMetadata={props.onLoadedMetadata}
+                src={src}
+                onLoadedMetadata={onLoadedMetadata}
                 className="video"
                 width="100%"
                 height="100%"

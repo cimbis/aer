@@ -6,10 +6,12 @@ interface MetaProps {
     seekVideoTo: (number: number) => void;
 }
 
-export const Meta = ({
-                         playPauseClicked,
-                         seekVideoTo,
-                     }: MetaProps) => {
+export const Meta = (
+    {
+        playPauseClicked,
+        seekVideoTo,
+    }: MetaProps
+) => {
     return (
         <div className="flex-row align-center">
             <button onClick={playPauseClicked}>
