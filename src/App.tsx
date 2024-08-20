@@ -3,7 +3,7 @@ import {VideoControls} from "./components/VideoControls/VideoControls.tsx";
 
 import {useVideoControls} from "./hooks/useVideoControls.ts";
 
-import {formatTime} from "./utlis/formatTime.ts";
+import {formatTime} from "./utils/formatTime.ts";
 
 import stitched from "./assets/GS012237-stitched.mp4";
 
@@ -29,13 +29,22 @@ function App() {
                 onTimeUpdate={onVideoTimeUpdate}
             />
 
-            <div className="video-length">
-                {formatTime(videoDuration)} | {formatTime(currentTimeInVideo)}
+            <div className="flex-row align-center">
+                <span className="monospaced">
+                    {formatTime(videoDuration)} | {formatTime(currentTimeInVideo)}
+                </span>
+                <button onClick={playPauseClicked}>
+                    Play/Pause
+                </button>
+                <button onClick={() => seekVideoTo(0)}>
+                    To Video Start
+                </button>
             </div>
 
             <VideoControls
                 seekVideoTo={seekVideoTo}
                 playPause={playPauseClicked}
+                videoDuration={videoDuration}
             />
         </div>
     );

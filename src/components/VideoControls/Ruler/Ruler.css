@@ -1,0 +1,10 @@
+.ruler {
+    border: 0.0125rem solid white;
+    border-radius: 0.5rem;
+}
+
+@media (prefers-color-scheme: light) {
+    .ruler {
+        border: 0.0125rem solid black;
+    }
+}

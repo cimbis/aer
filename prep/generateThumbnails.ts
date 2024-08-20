@@ -33,7 +33,6 @@ const generateThumbnails = async (
         fs.mkdirSync(outputPath);
     }
     for (const imageName of imageNames) {
-        console.log(imageName);
         const resizedImage = sharp(path.join(inputPath, imageName)).resize(outputSizeInPx, outputSizeInPx)
         await resizedImage.toFile(path.join(outputPath, `thumb_${imageName}`));
     }
