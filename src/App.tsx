@@ -21,6 +21,8 @@ function App() {
         seekVideoTo,
         onLoadedMetadata,
         playPauseClicked
+        playClicked,
+        pauseClicked
     } = useVideoControls();
 
     return (
@@ -34,7 +36,8 @@ function App() {
             <VideoControls
                 seekVideoTo={seekVideoTo}
                 videoDuration={videoDuration}
-                playPauseClicked={playPauseClicked}
+                playClicked={playClicked}
+                pauseClicked={pauseClicked}
                 images={[
                     {
                         positionInSeconds: 7,

@@ -4,10 +4,23 @@ export const useVideoControls = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
 
     const [videoDuration, setVideoDuration] = useState(0);
+    const [videoDimensions, setVideoDimensions] = useState<{
+        originalWidth: number,
+        originalHeight: number,
+        renderedWidth: number,
+        renderedHeight: number,
+    } | null>(null);
 
     const onLoadedMetadata = useCallback(() => {
         if (videoRef.current) {
             setVideoDuration(videoRef.current.duration);
+
+            setVideoDimensions({
+                originalWidth: videoRef.current.videoWidth,
+                originalHeight: videoRef.current.videoHeight,
+                renderedWidth: videoRef.current.videoWidth,
+                renderedHeight: videoRef.current.videoHeight,
+            })
         }
     }, [videoRef]);
 
@@ -18,22 +31,26 @@ export const useVideoControls = () => {
         }
     }, [videoRef])
 
-    const playPauseClicked = useCallback(async () => {
+    const pauseClicked = useCallback(async () => {
         if (videoRef.current) {
-            if (videoRef.current.paused) {
-                await videoRef.current.play();
-            } else {
-                videoRef.current.pause();
-            }
+            videoRef.current.pause();
+        }
+    }, [videoRef])
+
+    const playClicked = useCallback(async () => {
+        if (videoRef.current) {
+            await videoRef.current.play();
         }
     }, [videoRef])
 
     return {
         videoRef,
         videoDuration,
+        videoDimensions,
         onLoadedMetadata,
         seekVideoTo,
-        playPauseClicked
+        pauseClicked,
+        playClicked
     };
 
 }

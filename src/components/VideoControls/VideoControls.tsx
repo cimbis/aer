@@ -5,7 +5,8 @@ import {Meta} from "./Meta/Meta.tsx";
 
 interface VideoControlsProps {
     seekVideoTo: (toSeconds: number) => void,
-    playPauseClicked: () => void;
+    playClicked: () => void;
+    pauseClicked: () => void;
     videoDuration: number;
     images: ImageProps[];
 }
@@ -13,7 +14,8 @@ interface VideoControlsProps {
 export const VideoControls = (
     {
         seekVideoTo,
-        playPauseClicked,
+        playClicked,
+        pauseClicked,
         videoDuration,
         images
     }: VideoControlsProps
@@ -21,7 +23,8 @@ export const VideoControls = (
     return (
         <div className="flex-column">
             <Meta videoDuration={videoDuration}
-                  playPauseClicked={playPauseClicked}
+                  playClicked={playClicked}
+                  pauseClicked={pauseClicked}
                   seekVideoTo={seekVideoTo}
             />
             <Ruler
