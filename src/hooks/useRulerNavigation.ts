@@ -9,7 +9,7 @@ import {ImageProps} from "../App.tsx";
 
 import {formatTime} from "../utils/formatTime.ts";
 
-interface CanvasProps {
+interface RulerNavigationHookProps {
     prefersDark: boolean;
     videoDuration: number;
     pixelsPerSecond: number;
@@ -17,14 +17,14 @@ interface CanvasProps {
     onImageClick: (number: number) => void;
 }
 
-export const useCanvas = (
+export const useRulerNavigation = (
     {
         prefersDark,
         videoDuration,
         pixelsPerSecond,
         images,
         onImageClick
-    }: CanvasProps
+    }: RulerNavigationHookProps
 ) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -81,7 +81,10 @@ export const useCanvas = (
         })
     }, [images, pixelsPerSecond])
 
-    const handleCanvasClick = (event: { clientX: number; clientY: number; }) => {
+    const handleCanvasClick = useCallback((event: {
+        clientX: number;
+        clientY: number;
+    }) => {
         if (!canvasRef.current) return;
 
         const canvasRect = canvasRef.current.getBoundingClientRect();
@@ -104,7 +107,7 @@ export const useCanvas = (
         if (clickedImage) {
             onImageClick(clickedImage.positionInSeconds);
         }
-    }
+    }, [images, onImageClick, pixelsPerSecond])
 
     useEffect(() => {
         const cnv = canvasRef.current

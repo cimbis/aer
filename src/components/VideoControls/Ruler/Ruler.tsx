@@ -1,6 +1,6 @@
 import {ImageProps} from "../../../App.tsx";
 
-import {useCanvas} from "../../../hooks/useCanvas.ts";
+import {useRulerNavigation} from "../../../hooks/useRulerNavigation.ts";
 import useMediaQuery from "../../../hooks/useMediaQuery.ts";
 
 import "./Ruler.css"
@@ -28,7 +28,7 @@ export const Ruler = function RulerComponent(
         canvasWidth,
         canvasHeight,
         handleCanvasClick
-    } = useCanvas({
+    } = useRulerNavigation({
         prefersDark,
         videoDuration,
         pixelsPerSecond,
