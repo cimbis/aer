@@ -4,7 +4,6 @@ import {useCanvas} from "../../../hooks/useCanvas.ts";
 import useMediaQuery from "../../../hooks/useMediaQuery.ts";
 
 import "./Ruler.css"
-import {memo} from "react";
 
 interface RulerProps {
     videoDuration: number;
@@ -13,7 +12,7 @@ interface RulerProps {
     onImageClick: (number: number) => void;
 }
 
-export const Ruler = memo(function RulerComponent(
+export const Ruler = function RulerComponent(
     {
         videoDuration,
         pixelsPerSecond,
@@ -50,4 +49,4 @@ export const Ruler = memo(function RulerComponent(
             </div>
         </div>
     );
-})
+}
