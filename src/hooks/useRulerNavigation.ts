@@ -14,7 +14,9 @@ interface RulerNavigationHookProps {
     videoDuration: number;
     pixelsPerSecond: number;
     images: ImageProps[];
-    onImageClick: (number: number) => void;
+    onThumbnailClick: (
+        {id, time}: { id: string, time: number }
+    ) => void;
 }
 
 export const useRulerNavigation = (
@@ -23,7 +25,7 @@ export const useRulerNavigation = (
         videoDuration,
         pixelsPerSecond,
         images,
-        onImageClick
+        onThumbnailClick
     }: RulerNavigationHookProps
 ) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -91,8 +93,8 @@ export const useRulerNavigation = (
         const clickPositionX = event.clientX - canvasRect.left;
         const clickPositionY = event.clientY - canvasRect.top;
 
-        const clickedImage = images.find(image => {
-            const imagePositionX = image.positionInSeconds * pixelsPerSecond;
+        const clickedThumbnail = images.find(thumb => {
+            const imagePositionX = thumb.positionInSeconds * pixelsPerSecond;
             const imagePositionY = canvasHeight / 2;
 
             // assuming images are 25x25
@@ -100,14 +102,17 @@ export const useRulerNavigation = (
                 clickPositionX >= imagePositionX - 12.5 && clickPositionX <= imagePositionX + 12.5
                 && clickPositionY >= imagePositionY && clickPositionY <= imagePositionY + 25
             ) {
-                return image;
+                return thumb;
             }
         })
 
-        if (clickedImage) {
-            onImageClick(clickedImage.positionInSeconds);
+        if (clickedThumbnail) {
+            onThumbnailClick({
+                id: clickedThumbnail.id,
+                time: clickedThumbnail.positionInSeconds
+            });
         }
-    }, [images, onImageClick, pixelsPerSecond])
+    }, [images, onThumbnailClick, pixelsPerSecond])
 
     useEffect(() => {
         const cnv = canvasRef.current

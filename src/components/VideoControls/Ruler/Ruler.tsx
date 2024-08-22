@@ -9,7 +9,9 @@ interface RulerProps {
     videoDuration: number;
     pixelsPerSecond: number;
     images: ImageProps[];
-    onImageClick: (number: number) => void;
+    onThumbnailClick: (
+        {id, time}: { id: string, time: number }
+    ) => void;
 }
 
 export const Ruler = function RulerComponent(
@@ -17,7 +19,7 @@ export const Ruler = function RulerComponent(
         videoDuration,
         pixelsPerSecond,
         images,
-        onImageClick
+        onThumbnailClick
     }: RulerProps
 ) {
 
@@ -33,7 +35,7 @@ export const Ruler = function RulerComponent(
         videoDuration,
         pixelsPerSecond,
         images,
-        onImageClick
+        onThumbnailClick
     });
 
     return (

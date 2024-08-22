@@ -1,15 +1,16 @@
 import {useCallback, useRef, useState} from "react";
+import {VideoDimensions} from "../App.tsx";
 
 export const useVideoControls = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
 
     const [videoDuration, setVideoDuration] = useState(0);
-    const [videoDimensions, setVideoDimensions] = useState<{
-        originalWidth: number,
-        originalHeight: number,
-        renderedWidth: number,
-        renderedHeight: number,
-    } | null>(null);
+    const [videoDimensions, setVideoDimensions] = useState<VideoDimensions>({
+        originalWidth: 0,
+        originalHeight: 0,
+        renderedWidth: 0,
+        renderedHeight: 0,
+    });
 
     const onLoadedMetadata = useCallback(() => {
         if (videoRef.current) {
@@ -18,8 +19,8 @@ export const useVideoControls = () => {
             setVideoDimensions({
                 originalWidth: videoRef.current.videoWidth,
                 originalHeight: videoRef.current.videoHeight,
-                renderedWidth: videoRef.current.videoWidth,
-                renderedHeight: videoRef.current.videoHeight,
+                renderedWidth: videoRef.current.offsetWidth,
+                renderedHeight: videoRef.current.offsetHeight,
             })
         }
     }, [videoRef]);

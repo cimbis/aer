@@ -4,15 +4,20 @@ import {Ruler} from "./Ruler/Ruler.tsx";
 import {Meta} from "./Meta/Meta.tsx";
 
 interface VideoControlsProps {
+    displayAnnotationWithId: (id: string) => void,
     seekVideoTo: (toSeconds: number) => void,
     playClicked: () => void;
     pauseClicked: () => void;
+    onThumbnailClicked: (
+        {id, time}: { id: string, time: number }
+    ) => void;
     videoDuration: number;
     images: ImageProps[];
 }
 
 export const VideoControls = (
     {
+        onThumbnailClicked,
         seekVideoTo,
         playClicked,
         pauseClicked,
@@ -20,6 +25,7 @@ export const VideoControls = (
         images
     }: VideoControlsProps
 ) => {
+
     return (
         <div className="flex-column">
             <Meta videoDuration={videoDuration}
@@ -31,7 +37,7 @@ export const VideoControls = (
                 videoDuration={videoDuration}
                 pixelsPerSecond={50}
                 images={images}
-                onImageClick={seekVideoTo}
+                onThumbnailClick={onThumbnailClicked}
             />
         </div>
     );
