@@ -1,50 +1,50 @@
-# React + TypeScript + Vite
+# Aerones Case Study
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## About
 
-Currently, two official plugins are available:
+There are four main elements in the app:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 2d video with canvas overlay
+- 3d video
+- video controls for playing / pausing / re-starting video
+- ruler like canvas element that allows navigating between annotations
 
-## Expanding the ESLint configuration
+## Building / launching the project
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Copy and paste video file `GS012237-stitched.mp4` into `./src/assets`
+- There are two thumbnail images generated
+  from `all_frames_processed_GS012237_1719791982345517` that are used in a ruler like
+  canvas that allows to seek video to specific point in time:
+    - `thumb_21_R_1592_5.27_.png`
+    - `thumb_111_R_1972_5.23_.png`
+- Two excerpts from `defects_coco_GS012237_1719791982345517.json` are placed in `App.tsx`
+  that correspond to images and thumbnails used in the project
+- use `pnpm` as package manager
+- install dependencies with `pnpm i`
+- to launch dev server run `pnpm dev`
 
-- Configure the top-level `parserOptions` property like this:
+> If `pnpm build` is run, it will fail because `vite` is unable to process videos of such
+> large size
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Assumptions made
+
+- bbox coordinates in json are defined as an array with four values, from which upper left
+  and lower right coordinates of an annotation can be extracted:
+
+```javascript
+const coordinate: {
+    x1: bbox[0],
+    y1: bbox[2],
+    x2: bbox[1],
+    y2: bbox[3],
+};
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- there's no "time" property for annotated entries in json file, a value that's in between
+  the previous object and the next was assigned to annotations
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Project structure
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- There aren't many components - all of them lie in `./src/components/`
+- The main "controller" is the `App.tsx` component
+- Most of the logic is encapsulated in hooks to keep the components themselves lean
