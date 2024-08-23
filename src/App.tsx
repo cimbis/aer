@@ -12,6 +12,7 @@ import image2 from "./assets/thumb_111_R_1972_5.23_.png";
 
 import './App.css'
 import {useCallback, useMemo} from "react";
+import {FancyVideo} from "./components/FancyVideo/FancyVideo.tsx";
 
 export interface ImageProps {
     id: string;
@@ -88,6 +89,17 @@ function App() {
         }
     ], [])
 
+    const annotationsInfo = {
+        "21_R_1592_5.27_.png": {
+            bbox: annotations["21_R_1592_5.27_.png"].annotations[0].bbox,
+            text: annotations["21_R_1592_5.27_.png"].annotations[0].category_name
+        },
+        "111_R_1972_5.23_.png": {
+            bbox: annotations["111_R_1972_5.23_.png"].annotations[0].bbox,
+            text: annotations["111_R_1972_5.23_.png"].annotations[0].category_name
+        }
+    }
+
     const {
         videoRef,
         videoDuration,
@@ -101,19 +113,11 @@ function App() {
     const {
         annotationsRef,
         displayAnnotationWithId,
-        clearAnnotations
+        clearAnnotations,
+        annotationIdToDisplay
     } = useAnnotations({
         videoDimensions,
-        annotations: {
-            "21_R_1592_5.27_.png": {
-                bbox: annotations["21_R_1592_5.27_.png"].annotations[0].bbox,
-                text: annotations["21_R_1592_5.27_.png"].annotations[0].category_name
-            },
-            "111_R_1972_5.23_.png": {
-                bbox: annotations["111_R_1972_5.23_.png"].annotations[0].bbox,
-                text: annotations["111_R_1972_5.23_.png"].annotations[0].category_name
-            }
-        },
+        annotations: annotationsInfo,
     });
 
     const onThumbnailClick = useCallback(async ({id, time}: {
@@ -152,6 +156,12 @@ function App() {
                     ref={annotationsRef}
                 />
             </div>
+
+            <FancyVideo
+                videoRef={videoRef}
+                annotationIdToDisplay={annotationIdToDisplay}
+                annotations={annotationsInfo}
+            />
 
             <VideoControls
                 displayAnnotationWithId={displayAnnotationWithId}

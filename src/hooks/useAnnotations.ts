@@ -23,6 +23,8 @@ export const useAnnotations = (
 ) => {
     const annotationsRef = useRef<HTMLCanvasElement>(null);
 
+    const [annotationIdToDisplay, setAnnotationIdToDisplay] = useState<string | null>(null)
+
     const [canvasCtx, setCanvasCtx] = useState<CanvasRenderingContext2D | null>(null);
 
     const videoScale = useMemo(() => {
@@ -59,6 +61,8 @@ export const useAnnotations = (
             canvasCtx.fillStyle = 'yellow';
             canvasCtx.font = '16px Arial';
             canvasCtx.fillText(annotations[annotationId].text, x, y);
+
+            setAnnotationIdToDisplay(annotationId);
         }
     }, [canvasCtx, getCoordinatesOfAnnotation, annotations]);
 
@@ -69,6 +73,7 @@ export const useAnnotations = (
                 annotationsRef.current.width,
                 annotationsRef.current.height
             );
+            setAnnotationIdToDisplay(null);
         }
     }, [canvasCtx]);
 
@@ -89,5 +94,6 @@ export const useAnnotations = (
         annotationsRef,
         displayAnnotationWithId,
         clearAnnotations,
+        annotationIdToDisplay
     }
 }

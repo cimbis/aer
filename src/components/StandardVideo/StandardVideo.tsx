@@ -1,7 +1,5 @@
 import {ForwardedRef, forwardRef, MediaHTMLAttributes, ReactEventHandler} from "react";
 
-import "./StandardVideo.css"
-
 interface SimpleVideoProps {
     src: MediaHTMLAttributes<HTMLVideoElement>["src"];
     onLoadedMetadata: ReactEventHandler<HTMLVideoElement>;
@@ -19,7 +17,6 @@ export const SimpleVideo = forwardRef(
                 ref={ref}
                 src={src}
                 onLoadedMetadata={onLoadedMetadata}
-                className="video"
                 width="100%"
                 height="100%"
             ></video>
